@@ -1,8 +1,3 @@
-// musze zrobic planszę
-// plansza ma macierz 3 na 3
-// macierz wygląda tak ale w obiekcie?:
-// może array w obiekcie?
-
 function createPlayground() {
   let playground = {
     a: {
@@ -53,6 +48,9 @@ function gameBehavior() {
         temporary = 0;
       }
     }
+    let winningConditions = () => {
+      idk;
+    };
   };
 
   return { mark, gameRound };
@@ -69,12 +67,3 @@ function gamePlay() {
 }
 
 gamePlay();
-
-// Ok mamy dwóch graczy
-// każdy gracz wybiera sobie imie i znaczek x lub o
-
-// teraz gracz wybiera gdzie ma położyć swój znaczek?
-// np. na b2
-
-// kiedy go wybierze zmienia wartość na playgroud
-// wyświetlmy go po zmianie znaczka.
