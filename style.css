@@ -4,6 +4,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #123456;
+
 }
 .playground {
   display: grid;
@@ -18,25 +20,41 @@ body {
   justify-content: center;
   align-items: center;
 }
+button {
+    color: #fff;
+    font-size: 5rem;
+  border: none;
+  background-color: #123456;
+  width: 130px;
+  height: 130px;
+  border-radius: 100px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #222456;
+}
+button:active {
+  background-color: #111456;
+}
 #f2 {
-    border-right: 4px solid #000;
-    border-left: 4px solid #000;
-    border-bottom: 4px solid #000;
-    align-self: end;
+  border-right: 4px solid #000;
+  border-left: 4px solid #000;
+  border-bottom: 4px solid #000;
+  align-self: end;
 }
 #f4 {
-    border-top: 4px solid #000;
-    border-bottom: 4px solid #000;
-    border-right: 4px solid #000;
-    justify-self: end;
+  border-top: 4px solid #000;
+  border-bottom: 4px solid #000;
+  border-right: 4px solid #000;
+  justify-self: end;
 }
 #f6 {
-    border-top: 4px solid #000;
-    border-bottom: 4px solid #000;
-    border-left: 4px solid #000;
+  border-top: 4px solid #000;
+  border-bottom: 4px solid #000;
+  border-left: 4px solid #000;
 }
 #f8 {
-    border-top: 4px solid #000;
-    border-left: 4px solid #000;
-    border-right: 4px solid #000;
+  border-top: 4px solid #000;
+  border-left: 4px solid #000;
+  border-right: 4px solid #000;
 }

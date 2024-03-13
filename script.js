@@ -50,18 +50,6 @@ function gameBehavior() {
       winActivator = winningConditions();
     } while (winActivator < 1);
   };
-  // kiedy wygrywa?
-  // jak
-  // a1 i a2 i a3 === x lub o
-  // b1 i b2 i b3 === x lub o
-  // c1 i c2 i c3 === x lub o
-
-  // a1 i b1 i c1 === x lub o
-  // a2 i b2 i c2 === x lub o
-  // a3 i b3 i c3 === x lub o
-
-  // a1 i b2 i c3 === x lub o
-  // a3 i b2 i c1 === x lub o
 
   let winningConditions = () => {
     let winActivator = 0;
@@ -133,3 +121,13 @@ function gamePlay() {
 }
 
 // gamePlay();
+
+
+//DOM ATTACK
+
+
+const frame = document.querySelector(".frame")
+
+frame.addEventListener(("click"), () => {
+  console.log("clicked");
+})
