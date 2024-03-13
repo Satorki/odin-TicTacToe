@@ -22,24 +22,24 @@ function createPlayground() {
 function createPlayer() {
   const player = {
     name: prompt("What is your name?"),
-    sign: prompt("What is your play sign?"),
+    sign: prompt("What is your play sign? X or O"),
   };
   return { player };
 }
 
 function gameBehavior() {
   let mark = (name, sign) => {
-    let placeCol;
-    let placeRow;
-    placeCol = prompt(`Hello ${name} where to place col a ${sign} sign?`);
-    placeRow = prompt(`Hello ${name} where to place row a ${sign} sign?`);
+    let place;
+    place = prompt(`Hello ${name} where to place a ${sign} sign?`);
+    place.split("");
 
-    playgroud1.playground[placeCol][placeRow] = sign;
+    playground1.playground[place[0]][place[1]] = sign;
   };
 
-  let gameRound = () => {
+  let round = () => {
     let temporary = 0;
-    for (let i = 0; i < 3; i++) {
+    let winActivator;
+    do {
       if (temporary === 0) {
         gameBehavior().mark(player1.player.name, player1.player.sign);
         temporary = 1;
@@ -47,23 +47,89 @@ function gameBehavior() {
         gameBehavior().mark(player2.player.name, player2.player.sign);
         temporary = 0;
       }
+      winActivator = winningConditions();
+    } while (winActivator < 1);
+  };
+  // kiedy wygrywa?
+  // jak
+  // a1 i a2 i a3 === x lub o
+  // b1 i b2 i b3 === x lub o
+  // c1 i c2 i c3 === x lub o
+
+  // a1 i b1 i c1 === x lub o
+  // a2 i b2 i c2 === x lub o
+  // a3 i b3 i c3 === x lub o
+
+  // a1 i b2 i c3 === x lub o
+  // a3 i b2 i c1 === x lub o
+
+  let winningConditions = () => {
+    let winActivator = 0;
+    let pg = playground1.playground;
+    if (pg.a[1] + pg.a[2] + pg.a[3] === "xxx") {
+      console.log(`${player1.player.name} wins!`);
+      winActivator = 1;
+    } else if (pg.b[1] + pg.b[2] + pg.b[3] === "xxx") {
+      console.log(`${player1.player.name} wins!`);
+      winActivator = 1;
+    } else if (pg.c[1] + pg.c[2] + pg.c[3] === "xxx") {
+      console.log(`${player1.player.name} wins!`);
+      winActivator = 1;
+    } else if (pg.a[1] + pg.b[1] + pg.c[1] === "xxx") {
+      console.log(`${player1.player.name} wins!`);
+      winActivator = 1;
+    } else if (pg.a[2] + pg.b[2] + pg.c[2] === "xxx") {
+      console.log(`${player1.player.name} wins!`);
+      winActivator = 1;
+    } else if (pg.a[3] + pg.b[3] + pg.c[3] === "xxx") {
+      console.log(`${player1.player.name} wins!`);
+      winActivator = 1;
+    } else if (pg.a[1] + pg.b[2] + pg.c[3] === "xxx") {
+      console.log(`${player1.player.name} wins!`);
+      winActivator = 1;
+    } else if (pg.a[3] + pg.b[2] + pg.c[1] === "xxx") {
+      console.log(`${player1.player.name} wins!`);
+      winActivator = 1;
+    } else if (pg.a[1] + pg.a[2] + pg.a[3] === "ooo") {
+      console.log(`${player2.player.name} wins!`);
+      winActivator = 1;
+    } else if (pg.b[1] + pg.b[2] + pg.b[3] === "ooo") {
+      console.log(`${player2.player.name} wins!`);
+      winActivator = 1;
+    } else if (pg.c[1] + pg.c[2] + pg.c[3] === "ooo") {
+      console.log(`${player2.player.name} wins!`);
+      winActivator = 1;
+    } else if (pg.a[1] + pg.b[1] + pg.c[1] === "ooo") {
+      console.log(`${player2.player.name} wins!`);
+      winActivator = 1;
+    } else if (pg.a[2] + pg.b[2] + pg.c[2] === "ooo") {
+      console.log(`${player2.player.name} wins!`);
+      winActivator = 1;
+    } else if (pg.a[3] + pg.b[3] + pg.c[3] === "ooo") {
+      console.log(`${player2.player.name} wins!`);
+      winActivator = 1;
+    } else if (pg.a[1] + pg.b[2] + pg.c[3] === "ooo") {
+      console.log(`${player2.player.name} wins!`);
+      winActivator = 1;
+    } else if (pg.a[3] + pg.b[2] + pg.c[1] === "ooo") {
+      console.log(`${player2.player.name} wins!`);
+      winActivator = 1;
     }
-    let winningConditions = () => {
-      idk;
-    };
+    return winActivator;
   };
 
-  return { mark, gameRound };
+  return { mark, round, winningConditions };
 }
 
 function gamePlay() {
-  playgroud1 = createPlayground();
+  playground1 = createPlayground();
   player1 = createPlayer();
   player2 = createPlayer();
 
-  gameBehavior().gameRound();
+  gameBehavior().round();
+  gameBehavior().winningConditions();
 
-  console.table(playgroud1.playground);
+  console.table(playground1.playground);
 }
 
-gamePlay();
+// gamePlay();

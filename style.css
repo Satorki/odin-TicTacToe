@@ -1,7 +1,42 @@
-* {
-    border: 1px solid #000;
-}
-
 body {
-    background: #123456;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.playground {
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+.frame {
+  width: 150px;
+  height: 150px;
+  margin: -2px;
+  display: grid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#f2 {
+    border-right: 4px solid #000;
+    border-left: 4px solid #000;
+    border-bottom: 4px solid #000;
+    align-self: end;
+}
+#f4 {
+    border-top: 4px solid #000;
+    border-bottom: 4px solid #000;
+    border-right: 4px solid #000;
+    justify-self: end;
+}
+#f6 {
+    border-top: 4px solid #000;
+    border-bottom: 4px solid #000;
+    border-left: 4px solid #000;
+}
+#f8 {
+    border-top: 4px solid #000;
+    border-left: 4px solid #000;
+    border-right: 4px solid #000;
 }
