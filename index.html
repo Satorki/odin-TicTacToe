@@ -8,19 +8,45 @@
     <title>Odin TicTacToe</title>
   </head>
   <body>
+    <section class="player-info">
+      <p>Players Turn</p>
+    </section>
     <section class="main">
       <div class="playground">
-          <div class="frame" id="f1" ><button type="button">X</button></div>
-          <div class="frame" id="f2" ><button type="button">O</button></div>
-          <div class="frame" id="f3" ><button type="button"></button></div>
-          <div class="frame" id="f4" ><button type="button"></button></div>
-          <div class="frame" id="f5" ><button type="button"></button></div>
-          <div class="frame" id="f6" ><button type="button"></button></div>
-          <div class="frame" id="f7" ><button type="button"></button></div>
-          <div class="frame" id="f8" ><button type="button"></button></div>
-          <div class="frame" id="f9" ><button type="button"></button></div>
-        </div>
+        <div class="frame" id="f1"></div>
+        <div class="frame" id="f2"></div>
+        <div class="frame" id="f3"></div>
+        <div class="frame" id="f4"></div>
+        <div class="frame" id="f5"></div>
+        <div class="frame" id="f6"></div>
+        <div class="frame" id="f7"></div>
+        <div class="frame" id="f8"></div>
+        <div class="frame" id="f9"></div>
       </div>
     </section>
+    <section class="menu">
+      <button id="openModal">
+        <span>GAME START</span>
+      </button>
+    </section>
+    <dialog id="modal">
+      <h2>Create Players</h2>
+      <form id="modalForm">
+        <div class="input-box-container">
+        <div class="input-box">
+          <p>Enter Player 1 name</p>
+          <input type="text" name="player1" id="player1" />
+        </div>
+        <div class="input-box">
+          <p>Enter Player 2 name</p>
+          <input type="text" name="player2" id="player2" />
+        </div>
+      </div>
+      <div class="button-container">
+        <button type="button" id="playModal">START</button>
+        <button type="button" id="closeModal">CLOSE</button>
+      </div>
+      </form>
+    </dialog>
   </body>
 </html>
