@@ -32,6 +32,7 @@ body {
   font-size: 5rem;
   color: #fff;
   cursor: pointer;
+  transition: 300ms;
 }
 .frame:hover {
   background-color: #122456;
@@ -68,6 +69,10 @@ body {
   0px -7px 0px 0px black;
 }
 /* MENU */
+.menu {
+  display: flex;
+  gap: 50px;
+}
 button {
   padding: 5px 25px;
   border-radius: 10px;
@@ -80,10 +85,10 @@ button {
 
 /* MODAL */
 #modal {
+  margin-top: 200px;
   z-index: 3;
   color: #1e1b4b;
   background-color: #b6bed8;
-  margin: auto;
   width: 400px;
   border-radius: 20px;
   box-shadow: 5px 5px 10px 1px #312e81;

@@ -1,33 +1,38 @@
 //MODAL
 function modal() {
-  const window = document.getElementById("modal");
+  const dialog = document.getElementById("modal");
   const buttons = {
     open: document.querySelector("#openModal"),
     play: document.querySelector("#playModal"),
     close: document.querySelector("#closeModal"),
+    restart: document.querySelector("#restart"),
   };
 
   const behaviors = () => {
     buttons.open.addEventListener("click", () => {
-      window.showModal();
+      dialog.showModal();
     });
 
     buttons.play.addEventListener("click", () => {
       mainGame.playerInfo.output1();
       mainGame.play();
-      window.close();
+      dialog.close();
     });
 
     buttons.close.addEventListener("click", () => {
-      window.close();
+      dialog.close();
+    });
+
+    buttons.restart.addEventListener("click", () => {
+      window.location.reload();
     });
   };
 
-  return { window, buttons, behaviors };
+  return { dialog, buttons, behaviors };
 }
 // MODAL START
 const mainModal = modal();
-mainModal.window;
+mainModal.dialog;
 mainModal.buttons;
 mainModal.behaviors();
 
@@ -61,6 +66,9 @@ function game() {
     output2win: function () {
       this.selector.innerText = players.player2Input.value + " wins!";
     },
+    output3draw: function () {
+      this.selector.innerText = "It is a draw!";
+    },
   };
 
   const toggleTurn = () => {
@@ -74,59 +82,75 @@ function game() {
   };
 
   const play = () => {
+    let winner = 0;
     const playgroundElements = playground().playgroundElements;
     playgroundElements.forEach((element, index, arr) => {
       element.addEventListener("click", () => {
-        if (!element.innerText) {
+        if (!element.innerText && winner === 0) {
           let sign = document.createTextNode(
             currentPlayer.value === 1 ? "X" : "O"
           );
           toggleTurn();
           element.appendChild(sign);
           arr[index] = sign;
-        }
-        if (
-          arr[0].textContent + arr[1].textContent + arr[2].textContent ===
-            "XXX" ||
-          arr[0].textContent + arr[3].textContent + arr[6].textContent ===
-            "XXX" ||
-          arr[1].textContent + arr[4].textContent + arr[7].textContent ===
-            "XXX" ||
-          arr[2].textContent + arr[5].textContent + arr[8].textContent ===
-            "XXX" ||
-          arr[3].textContent + arr[4].textContent + arr[5].textContent ===
-            "XXX" ||
-          arr[6].textContent + arr[7].textContent + arr[8].textContent ===
-            "XXX" ||
-          arr[0].textContent + arr[4].textContent + arr[8].textContent ===
-            "XXX" ||
-          arr[2].textContent + arr[4].textContent + arr[6].textContent === "XXX"
-        ) {
-          return playerInfo.output1win();
-        } else if (
-          arr[0].textContent + arr[1].textContent + arr[2].textContent ===
-            "OOO" ||
-          arr[0].textContent + arr[3].textContent + arr[6].textContent ===
-            "OOO" ||
-          arr[1].textContent + arr[4].textContent + arr[7].textContent ===
-            "OOO" ||
-          arr[2].textContent + arr[5].textContent + arr[8].textContent ===
-            "OOO" ||
-          arr[3].textContent + arr[4].textContent + arr[5].textContent ===
-            "OOO" ||
-          arr[6].textContent + arr[7].textContent + arr[8].textContent ===
-            "OOO" ||
-          arr[0].textContent + arr[4].textContent + arr[8].textContent ===
-            "OOO" ||
-          arr[2].textContent + arr[4].textContent + arr[6].textContent === "OOO"
-        ) {
-          return playerInfo.output2win();
+          console.log(winner);
+          if (
+            arr[0].textContent + arr[1].textContent + arr[2].textContent ===
+              "XXX" ||
+            arr[0].textContent + arr[3].textContent + arr[6].textContent ===
+              "XXX" ||
+            arr[1].textContent + arr[4].textContent + arr[7].textContent ===
+              "XXX" ||
+            arr[2].textContent + arr[5].textContent + arr[8].textContent ===
+              "XXX" ||
+            arr[3].textContent + arr[4].textContent + arr[5].textContent ===
+              "XXX" ||
+            arr[6].textContent + arr[7].textContent + arr[8].textContent ===
+              "XXX" ||
+            arr[0].textContent + arr[4].textContent + arr[8].textContent ===
+              "XXX" ||
+            arr[2].textContent + arr[4].textContent + arr[6].textContent ===
+              "XXX"
+          ) {
+            playerInfo.output1win();
+            winner = 1
+          } else if (
+            arr[0].textContent + arr[1].textContent + arr[2].textContent ===
+              "OOO" ||
+            arr[0].textContent + arr[3].textContent + arr[6].textContent ===
+              "OOO" ||
+            arr[1].textContent + arr[4].textContent + arr[7].textContent ===
+              "OOO" ||
+            arr[2].textContent + arr[5].textContent + arr[8].textContent ===
+              "OOO" ||
+            arr[3].textContent + arr[4].textContent + arr[5].textContent ===
+              "OOO" ||
+            arr[6].textContent + arr[7].textContent + arr[8].textContent ===
+              "OOO" ||
+            arr[0].textContent + arr[4].textContent + arr[8].textContent ===
+              "OOO" ||
+            arr[2].textContent + arr[4].textContent + arr[6].textContent ===
+              "OOO"
+          ) {
+            playerInfo.output2win();
+            winner = 1
+          } else if (
+            arr[0].textContent &&
+            arr[1].textContent &&
+            arr[2].textContent &&
+            arr[3].textContent &&
+            arr[4].textContent &&
+            arr[5].textContent &&
+            arr[6].textContent &&
+            arr[7].textContent &&
+            arr[8].textContent
+          ) {
+            playerInfo.output3draw();
+          }
         }
       });
     });
   };
-
-  const winningConditions = () => {};
 
   return { playerInfo, play };
 }
