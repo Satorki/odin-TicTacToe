@@ -1,34 +1,39 @@
 //MODAL
 function modal() {
   const window = document.getElementById("modal");
-  const button = {
+  const buttons = {
     open: document.querySelector("#openModal"),
     play: document.querySelector("#playModal"),
     close: document.querySelector("#closeModal"),
   };
 
   const behaviors = () => {
-    button.open.addEventListener("click", () => {
+    buttons.open.addEventListener("click", () => {
       window.showModal();
     });
 
-    button.play.addEventListener("click", () => {});
+    buttons.play.addEventListener("click", () => {
+      mainGame.playerInfo.output1();
+      mainGame.play();
+      window.close();
+    });
 
-    button.close.addEventListener("click", () => {
+    buttons.close.addEventListener("click", () => {
       window.close();
     });
   };
 
-  return { window, button, behaviors };
+  return { window, buttons, behaviors };
 }
-
+// MODAL START
 const mainModal = modal();
 mainModal.window;
-mainModal.button;
+mainModal.buttons;
 mainModal.behaviors();
 
 //GAME
 function game() {
+  const currentPlayer = { value: 1 };
   const playground = () => {
     let playground = ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9"];
     let playgroundElements = playground.map((elementId) => {
@@ -37,28 +42,112 @@ function game() {
     return { playgroundElements };
   };
 
-  const player = () => {
-    const player = {
-      player1Input: document.querySelector("#player1"),
-      player2Input: document.querySelector("#player2"),
-    };
+  const players = {
+    player1Input: document.querySelector("#player1"),
+    player2Input: document.querySelector("#player2"),
   };
 
-  const behaviors = () => {};
+  const playerInfo = {
+    selector: document.querySelector(".player-info > p"),
+    output1: function () {
+      this.selector.innerText = players.player1Input.value + "'s turn";
+    },
+    output2: function () {
+      this.selector.innerText = players.player2Input.value + "'s turn";
+    },
+    output1win: function () {
+      this.selector.innerText = players.player1Input.value + " wins!";
+    },
+    output2win: function () {
+      this.selector.innerText = players.player2Input.value + " wins!";
+    },
+  };
 
-  return { playground, player, behaviors };
+  const toggleTurn = () => {
+    if (currentPlayer.value === 1) {
+      playerInfo.output2();
+      currentPlayer.value = 2;
+    } else {
+      playerInfo.output1();
+      currentPlayer.value = 1;
+    }
+  };
+
+  const play = () => {
+    const playgroundElements = playground().playgroundElements;
+    playgroundElements.forEach((element, index, arr) => {
+      element.addEventListener("click", () => {
+        if (!element.innerText) {
+          let sign = document.createTextNode(
+            currentPlayer.value === 1 ? "X" : "O"
+          );
+          toggleTurn();
+          element.appendChild(sign);
+          arr[index] = sign;
+        }
+        if (
+          arr[0].textContent + arr[1].textContent + arr[2].textContent ===
+            "XXX" ||
+          arr[0].textContent + arr[3].textContent + arr[6].textContent ===
+            "XXX" ||
+          arr[1].textContent + arr[4].textContent + arr[7].textContent ===
+            "XXX" ||
+          arr[2].textContent + arr[5].textContent + arr[8].textContent ===
+            "XXX" ||
+          arr[3].textContent + arr[4].textContent + arr[5].textContent ===
+            "XXX" ||
+          arr[6].textContent + arr[7].textContent + arr[8].textContent ===
+            "XXX" ||
+          arr[0].textContent + arr[4].textContent + arr[8].textContent ===
+            "XXX" ||
+          arr[2].textContent + arr[4].textContent + arr[6].textContent === "XXX"
+        ) {
+          return playerInfo.output1win();
+        } else if (
+          arr[0].textContent + arr[1].textContent + arr[2].textContent ===
+            "OOO" ||
+          arr[0].textContent + arr[3].textContent + arr[6].textContent ===
+            "OOO" ||
+          arr[1].textContent + arr[4].textContent + arr[7].textContent ===
+            "OOO" ||
+          arr[2].textContent + arr[5].textContent + arr[8].textContent ===
+            "OOO" ||
+          arr[3].textContent + arr[4].textContent + arr[5].textContent ===
+            "OOO" ||
+          arr[6].textContent + arr[7].textContent + arr[8].textContent ===
+            "OOO" ||
+          arr[0].textContent + arr[4].textContent + arr[8].textContent ===
+            "OOO" ||
+          arr[2].textContent + arr[4].textContent + arr[6].textContent === "OOO"
+        ) {
+          return playerInfo.output2win();
+        }
+      });
+    });
+  };
+
+  const winningConditions = () => {};
+
+  return { playerInfo, play };
 }
 
 const mainGame = game();
-const playground = mainGame.playground().playgroundElements;
-playground.forEach((element, index, arr) => {
-  element.addEventListener("click", () => {
-    let xSign = document.createTextNode("X");
-    arr[index] = element.appendChild(xSign);
-  });
-});
 
-mainGame.player();
+//GAME START
+// const mainGame = game();
+// const playground = mainGame.playground().playgroundElements;
+// playground.forEach((element) => {
+//   element.addEventListener("click", () => {
+//     if (!element.innerText) {
+//       console.log(mainGame.currentPlayer);
+//       let sign = document.createTextNode(
+//         mainGame.players.currentPlayer === 1 ? "X" : "O"
+//       );
+//       mainGame.toggleTurn();
+//       element.appendChild(sign);
+//     }
+//   });
+// });
 
 // function createPlayground() {
 //   let playground = ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9"];
@@ -85,25 +174,28 @@ mainGame.player();
 //     playground1.playground[place[0]][place[1]] = sign;
 //   };
 
-//   let round = () => {
-//     let temporary = 0;
-//     let winActivator;
-//     do {
-//       if (temporary === 0) {
-//         gameBehavior().mark(player1.player.name, player1.player.sign);
-//         temporary = 1;
-//       } else if (temporary === 1) {
-//         gameBehavior().mark(player2.player.name, player2.player.sign);
-//         temporary = 0;
-//       }
-//       winActivator = winningConditions();
-//     } while (winActivator < 1);
-//   };
+// let round = () => {
+//   let temporary = 0;
+//   let winActivator;
+//   do {
+//     if (temporary === 0) {
+//       // gameBehavior().mark(player1.player.name, player1.player.sign);
+//       console.log(playground);
+//       temporary = 1;
+//     } else if (temporary === 1) {
+//       // gameBehavior().mark(player2.player.name, player2.player.sign);
+
+//       temporary = 0;
+//     }
+//     winActivator = winningConditions();
+//   } while (winActivator < 1);
+// };
+
+// round();
 
 //   let winningConditions = () => {
 //     let winActivator = 0;
-//     let pg = playground1.playground;
-//     if (pg.a[1] + pg.a[2] + pg.a[3] === "xxx") {
+//     if (mainGame.) {
 //       console.log(`${player1.player.name} wins!`);
 //       winActivator = 1;
 //     } else if (pg.b[1] + pg.b[2] + pg.b[3] === "xxx") {
